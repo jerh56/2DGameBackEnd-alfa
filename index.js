@@ -2,6 +2,15 @@ const express = require("express");
 const app = express();
 const port = 8000;
 
+// CORS enabled
+app.use(function(req, res, next) {
+    // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    next();
+   });
+
 app.set('port', process.env.PORT || 3000);
 
 app.get("/", (request, response) => {
