@@ -13,7 +13,12 @@ app.get("/phrase", (request, response) => {
 });
 
 app.get("/test-phrase", (request, response) => {
-    response.send("LA AMENAZA FANTASMA");
+    const list = ["LA AMENAZA FANTASMA","LA AMENAZA DE DANIEL","EL FANTASMA DE LA OPERA", "BROKEBACK MOUNTAIN",
+    "EL PADRINO",
+    "MAD MAX FURIA EN LA CARRETERA", 
+    "VOLVER AL FUTURO"];
+    let phrase = list[Math.floor(Math.random() * list.length)]; 
+    response.send(phrase);
 });
 
 app.listen(app.get('port'), () => {
