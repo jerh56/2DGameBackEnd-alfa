@@ -3,6 +3,13 @@ const app = express();
 const port = 8000;
 const helmet = require("helmet");
 
+const redis = require('redis');
+const configClient={
+    host: 'redis-13497.c281.us-east-1-2.ec2.cloud.redislabs.com',
+    port: 13497,
+    pass: ''
+};
+
 // CORS enabled
 app.use(function(req, res, next) {
     // update to match the domain you will make the request from
@@ -38,3 +45,13 @@ app.get("/test-phrase", (request, response) => {
 app.listen(app.get('port'), () => {
     console.log(`Server listening on port:${app.get('port')}`);
 });
+
+//Creamos cliente de redis
+const client = redis.createClient(configClient);
+
+(async () => {
+    await client.connect();
+})();
+
+client.on('connect', () => console.log('Redis Client Connected'));
+client.on('error', (err) => console.log('Redis Client Connection Error', err));
