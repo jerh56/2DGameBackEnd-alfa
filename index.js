@@ -11,9 +11,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "*");
     next();
    });
-
 app.use(helmet());
-
 const list = ["LA AMENAZA FANTASMA","LA AMENAZA DE DANIEL","EL FANTASMA DE LA OPERA", "BROKEBACK MOUNTAIN",
 "EL PADRINO",
 "MAD MAX FURIA EN LA CARRETERA", 
