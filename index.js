@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 8000;
+const helmet = require("helmet");
 
 // CORS enabled
 app.use(function(req, res, next) {
@@ -10,7 +11,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "*");
     next();
    });
-
+app.use(helmet());
 const list = ["LA AMENAZA FANTASMA","LA AMENAZA DE DANIEL","EL FANTASMA DE LA OPERA", "BROKEBACK MOUNTAIN",
 "EL PADRINO",
 "MAD MAX FURIA EN LA CARRETERA", 
