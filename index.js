@@ -37,7 +37,8 @@ app.get("/", (req, res) => {
 app.get("/phrase", (req, res) => {
     res.json({
         phrase: list[Math.floor(Math.random() * list.length)],
-        type: "Movie"
+        type: "Movie",
+        tries: 5
     })
 });
 
@@ -53,8 +54,12 @@ async function main() {
 main();
 
 // Start server
-app.listen(app.get('port'), () => {
-    console.log(`Server listening on port:${app.get('port')}`);
+app.listen(app.get('port'), (err) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(`Listening at http://localhost:${app.get('port')}`);
+    }
 });
 
 //Creamos cliente de redis
