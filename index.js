@@ -1,10 +1,13 @@
 const express = require("express");
 const cors = require('cors');
-const port = 8000;
+
 const helmet = require("helmet");
 const mongoose = require('./mongodb.js');
 
+// App config
+const app = express();
 
+app.set('port', process.env.PORT || 3000);
 
 /*
 const redis = require('redis');
@@ -18,15 +21,17 @@ const configClient={
 // Middlewares
 app.use(cors());
 app.use(helmet());
-const list = ["LA AMENAZA FANTASMA","LA AMENAZA DE DANIEL","EL FANTASMA DE LA OPERA", "BROKEBACK MOUNTAIN",
-"EL PADRINO",
-"MAD MAX FURIA EN LA CARRETERA", 
-"VOLVER AL FUTURO"];
 
-app.set('port', process.env.PORT || 3000);
+// Database
+const list = ["LA AMENAZA FANTASMA", "LA AMENAZA DE DANIEL", "EL FANTASMA DE LA OPERA", "BROKEBACK MOUNTAIN",
+    "EL PADRINO",
+    "MAD MAX FURIA EN LA CARRETERA",
+    "VOLVER AL FUTURO"];
 
-app.get("/", (request, response) => {
-    response.send("2D Video Game");
+
+// Endpoints
+app.get("/", (req, res) => {
+    res.send("2D Video Game");
 });
 
 app.get("/phrase", (req, res) => {
@@ -36,13 +41,9 @@ app.get("/phrase", (req, res) => {
     })
 });
 
-app.get("/test-phrase", (request, response) => {
-    let phrase = list[Math.floor(Math.random() * list.length)]; 
-    response.send(phrase);
-});
-
-app.listen(app.get('port'), () => {
-    console.log(`Server listening on port:${app.get('port')}`);
+app.get("/test-phrase", (req, res) => {
+    let phrase = list[Math.floor(Math.random() * list.length)];
+    res.send(phrase);
 });
 
 //Conectamos DB
@@ -50,6 +51,11 @@ async function main() {
     await mongoose.conexionDB();
 }
 main();
+
+// Start server
+app.listen(app.get('port'), () => {
+    console.log(`Server listening on port:${app.get('port')}`);
+});
 
 //Creamos cliente de redis
 //const client = redis.createClient(configClient);
