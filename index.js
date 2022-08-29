@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+const cors = require('cors');
 const port = 8000;
 const helmet = require("helmet");
 const mongoose = require('./mongodb.js');
@@ -14,14 +14,9 @@ const configClient={
     pass: ''
 };
 */
-// CORS enabled
-app.use(function(req, res, next) {
-    // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    next();
-   });
+
+// Middlewares
+app.use(cors());
 app.use(helmet());
 const list = ["LA AMENAZA FANTASMA","LA AMENAZA DE DANIEL","EL FANTASMA DE LA OPERA", "BROKEBACK MOUNTAIN",
 "EL PADRINO",
