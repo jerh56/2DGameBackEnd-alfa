@@ -1,13 +1,18 @@
-const express = require("express");
-const cors = require('cors');
+import express  from "express";
+import cors  from'cors';
+import helmet  from"helmet";
+import cnnDB  from './mongodb.js';
+import {PORT} from "./config.js";
+import rPeliculas from "./routes/peliculas.routes.js"
+import rSeries from "./routes/series.routes.js"
+import rActores from "./routes/actores.routes.js"
+import rFrase from "./routes/frase.routes.js";
 
-const helmet = require("helmet");
-const mongoose = require('./mongodb.js');
+
 
 // App config
 const app = express();
-
-app.set('port', process.env.PORT || 3000);
+app.set('port', PORT);
 
 /*
 const redis = require('redis');
@@ -21,7 +26,8 @@ const configClient={
 // Middlewares
 app.use(cors());
 app.use(helmet());
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 // Database
 const list = ["LA AMENAZA FANTASMA", "LA AMENAZA DE DANIEL", "EL FANTASMA DE LA OPERA", "BROKEBACK MOUNTAIN",
     "EL PADRINO",
@@ -49,7 +55,7 @@ app.get("/test-phrase", (req, res) => {
 
 //Conectamos DB
 async function main() {
-    await mongoose.conexionDB();
+    await cnnDB.mongoose();
 }
 main();
 
@@ -61,6 +67,12 @@ app.listen(app.get('port'), (err) => {
         console.log(`Listening at http://localhost:${app.get('port')}`);
     }
 });
+
+//routes
+app.use(rPeliculas);
+app.use(rSeries);
+app.use(rActores);
+app.use(rFrase);
 
 //Creamos cliente de redis
 //const client = redis.createClient(configClient);
