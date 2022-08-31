@@ -55,7 +55,7 @@ app.get("/test-phrase", (req, res) => {
 
 //Conectamos DB
 async function main() {
-    await     await cnnDB.mongoose();
+    await cnnDB.mongoose();
 }
 main();
 
