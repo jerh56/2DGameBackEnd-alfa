@@ -3,10 +3,12 @@ import cors  from'cors';
 import helmet  from"helmet";
 import cnnDB  from './mongodb.js';
 import {PORT} from "./config.js";
+import  token  from "./helpers/token.js";
 import rPeliculas from "./routes/peliculas.routes.js"
 import rSeries from "./routes/series.routes.js"
 import rActores from "./routes/actores.routes.js"
 import rFrase from "./routes/frase.routes.js";
+import rUsuario from "./routes/usuario.routes.js";
 
 
 
@@ -36,11 +38,11 @@ const list = ["LA AMENAZA FANTASMA", "LA AMENAZA DE DANIEL", "EL FANTASMA DE LA 
 
 
 // Endpoints
-app.get("/", (req, res) => {
+app.get("/", token.valido, (req, res) => {
     res.send("2D Video Game");
 });
 
-app.get("/phrase", (req, res) => {
+app.get("/phrase",token.valido, (req, res) => {
     res.json({
         phrase: list[Math.floor(Math.random() * list.length)],
         type: "Movie",
@@ -48,7 +50,7 @@ app.get("/phrase", (req, res) => {
     })
 });
 
-app.get("/test-phrase", (req, res) => {
+app.get("/test-phrase",token.valido, (req, res) => {
     let phrase = list[Math.floor(Math.random() * list.length)];
     res.send(phrase);
 });
@@ -73,6 +75,7 @@ app.use(rPeliculas);
 app.use(rSeries);
 app.use(rActores);
 app.use(rFrase);
+app.use(rUsuario);
 
 //Creamos cliente de redis
 //const client = redis.createClient(configClient);
