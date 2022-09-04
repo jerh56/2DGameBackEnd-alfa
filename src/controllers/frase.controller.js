@@ -1,4 +1,6 @@
 import mFrase from '../models/frase.model.js'
+import respuesta from '../helpers/respuesta.js'
+
 
 const cFrase ={};
 
@@ -12,12 +14,11 @@ cFrase.fncFraseGuardar=async(req,res)=>{
 }
 
 cFrase.fncFraseListar=async (req,res)=>{
-    const frase = await mFrase.find(req.query)
-    .lean();
-    let result={};
-    result.data=frase;
-    result.rowCount=frase.length;
-    res.send(result);
+    const datos = await mFrase.aggregate(
+        [ { $sample: { size: 1 } } ]
+     );
+        console.log(datos);
+    res.json( await respuesta.game({datos,type:'frase'}));
 }
 
 export default cFrase;
