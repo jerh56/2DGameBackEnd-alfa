@@ -6,14 +6,14 @@ import token from "../helpers/token.js";
 const cUsuario = {};
 
 //crear usuario
-cUsuario.singUp = async (req, res) => {
+cUsuario.signUp = async (req, res) => {
   let errors = [];
   const { name, email, password, confirm_password } = req.body;
   if (password !== confirm_password) {
-    errors.push({ text: "Passwords no coincide." });
+    errors.push({ text: "Los passwords no coinciden." });
   }
   if (password.length < 4) {
-    errors.push({ text: "El Passwords debe tener al menos 4 caracteres." });
+    errors.push({ text: "Los passwords deben tener al menos 4 caracteres." });
   }
   if (errors.length > 0) {
     return res.send({
@@ -37,7 +37,7 @@ cUsuario.singUp = async (req, res) => {
   usuarioNuevo.password = await usuarioNuevo.encryptarPassword(password);
   await usuarioNuevo.save();
   const result = {
-    "mensaje": "Usuario Guardar exitosamente."
+    "mensaje": "Usuario Guardado exitosamente."
   }
   res.send(result);
 };
