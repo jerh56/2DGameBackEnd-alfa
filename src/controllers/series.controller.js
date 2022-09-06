@@ -1,4 +1,5 @@
 import mSeries from '../models/series.model.js'
+import respuesta from '../helpers/respuesta.js'
 
 const cSeries={};
 
@@ -6,12 +7,10 @@ const cSeries={};
 /* Se puede filtrar por:
 Id, title, overview, lenguague (en,es), page */
 cSeries.fncSerieListar=async (req,res)=>{
-    const serie = await mSeries.find(req.query)
+    const filtrado={ page: Math.floor(Math.random() * 500),lenguague:"es" };
+    const datos = await mSeries.find(filtrado)
     .lean();
-    let result={};
-    result.data=serie;
-    result.rowCount=serie.length;
-    res.send(result);
+    res.json( await respuesta.game({datos,type:'serie'}));
 }
 
 export default cSeries;

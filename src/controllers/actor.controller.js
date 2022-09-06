@@ -1,16 +1,16 @@
 import mActor from '../models/actor.model.js'
+import respuesta from '../helpers/respuesta.js'
+
 
 const cActor ={};
 
 
 
 cActor.fncActoresListar=async (req,res)=>{
-    const actor = await mActor.find(req.query)
+    const filtrado={ page: Math.floor(Math.random() * 500)};
+    const datos = await mActor.find(filtrado)
     .lean();
-    let result={};
-    result.data=actor;
-    result.rowCount=actor.length;
-    res.send(result);
+    res.json( await respuesta.game({datos,type:'actor'}));
 }
 
 export default cActor;

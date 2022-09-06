@@ -7,6 +7,7 @@ import rPeliculas from "./routes/peliculas.routes.js"
 import rSeries from "./routes/series.routes.js"
 import rActores from "./routes/actores.routes.js"
 import rFrase from "./routes/frase.routes.js";
+import rUsuario from "./routes/usuario.routes.js";
 
 
 
@@ -73,7 +74,7 @@ app.use(rPeliculas);
 app.use(rSeries);
 app.use(rActores);
 app.use(rFrase);
-
+app.use(rUsuario);
 //Creamos cliente de redis
 //const client = redis.createClient(configClient);
 
