@@ -17,7 +17,6 @@ cFrase.fncFraseListar=async (req,res)=>{
     const datos = await mFrase.aggregate(
         [ { $sample: { size: 1 } } ]
      );
-        console.log(datos);
     res.json( await respuesta.game({datos,type:'frase'}));
 }
 
